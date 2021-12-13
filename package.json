@@ -1,0 +1,12 @@
+{
+  "name": "mesh-api-to-code",
+  "private": true,
+  "version": "1.0.0",
+  "repository": "git@github.com:dear-lizhihua/mesh-api-to-code.git",
+  "author": "lizhihua",
+  "license": "MIT",
+  "workspaces": [
+    "packages/*",
+    "examples/*"
+  ]
+}

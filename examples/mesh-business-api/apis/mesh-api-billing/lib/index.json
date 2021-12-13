@@ -1,0 +1,105 @@
+{
+  "swagger": "2.0",
+  "basePath": "/billing/gcp/v1",
+  "paths": {
+    "/costs/current_month/total": {
+      "get": {
+        "tags": [
+          "概览"
+        ],
+        "summary": "本月总费用",
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/costs/cost_trend/group_by": {
+      "get": {
+        "tags": [
+          "概览"
+        ],
+        "summary": "费用趋势",
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/costs/compare_period/total": {
+      "post": {
+        "tags": [
+          "报告"
+        ],
+        "summary": "环比费用",
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/costs/day_on_day_ratio/group_by": {
+      "post": {
+        "tags": [
+          "报告"
+        ],
+        "summary": "按日聚合图表",
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/costs": {
+      "post": {
+        "tags": [
+          "报告"
+        ],
+        "summary": "花费明细表格",
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/costs/export": {
+      "get": {
+        "tags": [
+          "报告"
+        ],
+        "summary": "花费明细表格（导出）",
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/costs/services/options": {
+      "post": {
+        "tags": [
+          "报告"
+        ],
+        "summary": "服务",
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/costs/skus/options": {
+      "post": {
+        "tags": [
+          "报告"
+        ],
+        "summary": "SKU",
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/skus/discount": {
+      "get": {
+        "tags": [
+          "折扣"
+        ],
+        "summary": "SKU 折扣列表",
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    }
+  }
+}

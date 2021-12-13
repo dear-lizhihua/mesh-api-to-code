@@ -1,0 +1,9 @@
+{
+  "name": "mesh-business-api",
+  "scripts": {
+    "start": "mesh-api-to-code"
+  },
+  "dependencies": {
+    "mesh-api-to-code": "^1.0.0"
+  }
+}
