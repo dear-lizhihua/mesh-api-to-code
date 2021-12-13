@@ -1,0 +1,50 @@
+{
+  "swagger": "2.0",
+  "basePath": "/cdn/v1",
+  "paths": {
+    "/domains": {
+      "post": {
+        "tags": [
+          "域名管理"
+        ],
+        "summary": "域名列表",
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/domains/:domainId": {
+      "put": {
+        "tags": [
+          "域名管理"
+        ],
+        "summary": "修改域名",
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/certs": {
+      "get": {
+        "tags": [
+          "证书管理"
+        ],
+        "summary": "证书列表",
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/certs/:certId": {
+      "delete": {
+        "tags": [
+          "证书管理"
+        ],
+        "summary": "删除证书",
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    }
+  }
+}
