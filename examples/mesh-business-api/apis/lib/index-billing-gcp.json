@@ -64,7 +64,14 @@
         ],
         "summary": "花费明细表格（导出）",
         "description": "",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "Content-Disposition",
+            "in": "header",
+            "type": "string",
+            "default": "attachment"
+          }
+        ],
         "responses": {}
       }
     },

@@ -1,4 +1,4 @@
-const concatPrefixUrl = () => `const prefixUrl = path => import.meta.env.VITE_PREFIX + import.meta.env.VITE_VERSION + path`
+const concatPrefixUrl = () => `const prefixUrl = path => import.meta.env.VITE_PREFIX + '/' + import.meta.env.VITE_VERSION + path`
 const concatWrapperClassName = (constructor, methods) => `
 export class ApiService {
   ${constructor}
@@ -11,24 +11,40 @@ const concatConstructor = () => `
   }
 `
 
-const concatGetFunction = (functionName, pathname) => `
+const concatGetFunction = (functionName, pathname, options) => {
+  const responseType = options.isContentDispositionAttachment ? 'blob' : 'json'
+  return `
   async ${functionName} (params) {
     const pathname = prefixUrl('${pathname}')
-    return this.httpClient.get(pathname, {params})
+    return this.httpClient({
+      method: 'get',
+      url: pathname,
+      params,
+      responseType: '${responseType}'
+    })
   }
 `
+}
 const concatDeleteFunction = (functionName, pathname) => `
   async ${functionName} (params) {
     const pathname = prefixUrl('${pathname}')
     return this.httpClient.delete(pathname, {params})
   }
 `
-const concatPostFunction = (functionName, pathname) => `
+const concatPostFunction = (functionName, pathname, options) => {
+  const responseType = options.isContentDispositionAttachment ? 'blob' : 'json'
+  return `
   async ${functionName} (data) {
     const pathname = prefixUrl('${pathname}')
-    return this.httpClient.post(pathname, data)
+    return this.httpClient({
+      method: 'post',
+      url: pathname,
+      data,
+      responseType: '${responseType}'
+    })
   }
 `
+}
 const concatPutFunction = (functionName, pathname) => `
   async ${functionName} (data) {
     const pathname = prefixUrl('${pathname}')

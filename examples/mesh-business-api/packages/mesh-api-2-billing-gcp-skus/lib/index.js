@@ -1,4 +1,4 @@
-const prefixUrl = (path) => import.meta.env.VITE_PREFIX + import.meta.env.VITE_VERSION + path
+const prefixUrl = (path) => import.meta.env.VITE_PREFIX + '/' + import.meta.env.VITE_VERSION + path
 export class ApiService {
   constructor(httpClient) {
     this.httpClient = httpClient
@@ -6,6 +6,11 @@ export class ApiService {
 
   async getSkusDiscount(params) {
     const pathname = prefixUrl('/skus/discount')
-    return this.httpClient.get(pathname, { params })
+    return this.httpClient({
+      method: 'get',
+      url: pathname,
+      params,
+      responseType: 'json',
+    })
   }
 }
