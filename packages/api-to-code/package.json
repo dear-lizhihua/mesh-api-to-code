@@ -1,6 +1,6 @@
 {
   "name": "api-to-code",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "bin": {
     "mesh-api-to-code": "./lib/index.js"
   },
