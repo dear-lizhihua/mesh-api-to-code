@@ -6,7 +6,10 @@
   },
   "files": [
     "lib",
-    "lib/template"
+    "lib/template/.env",
+    "lib/template/.npmignore",
+    "lib/template/package.json",
+    "lib/template/vite.config.js"
   ],
   "dependencies": {
     "fs-extra": "^10.0.0",
