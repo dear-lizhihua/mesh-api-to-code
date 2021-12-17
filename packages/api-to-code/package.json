@@ -5,9 +5,12 @@
     "mesh-api-to-code": "./lib/index.js"
   },
   "dependencies": {
-    "magic-string": "^0.25.7",
-    "lodash": "^4.17.21",
     "fs-extra": "^10.0.0",
+    "lodash": "^4.17.21",
+    "magic-string": "^0.25.7",
     "prettier": "^2.5.1"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
   }
 }
