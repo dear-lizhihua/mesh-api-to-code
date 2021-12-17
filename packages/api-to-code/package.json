@@ -6,7 +6,7 @@
   },
   "files": [
     "lib",
-    "dist"
+    "lib/template"
   ],
   "dependencies": {
     "fs-extra": "^10.0.0",
