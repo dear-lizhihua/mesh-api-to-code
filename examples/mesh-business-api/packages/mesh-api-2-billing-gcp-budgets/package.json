@@ -1,0 +1,18 @@
+{
+  "name": "@mesh-api-2/billing-gcp-budgets",
+  "version": "1.0.0",
+  "module": "dist/index.esm.js",
+  "scripts": {
+    "build": "vite build"
+  },
+  "files": [
+    "lib",
+    "dist"
+  ],
+  "dependencies": {
+    "vite": "^2.5.0"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmmirror.com/"
+  }
+}

@@ -1,4 +1,5 @@
 const {camelCase, capitalize} = require('lodash')
+const {pathToRegexp} = require('path-to-regexp')
 
 const {
   concatPrefixUrl, concatWrapperClassName, concatConstructor, concatFunctionMap,
@@ -33,7 +34,18 @@ module.exports = (contextModule) => {
 const mapPaths = (paths, callback) => {
   for (const {path, value} of paths) {
     const methodDefinitions = value
-    const methodName = camelCase(path)
+    const keys = [];
+    pathToRegexp(path, keys)
+    let methodName = ''
+    if (keys.length === 0) { // 未解析出路径参数
+      methodName = path
+    } else {
+      keys.forEach(key => {
+        const capitalizedKey = capitalize(key.name.slice(0, 1)) + key.name.slice(1)
+        methodName = path.replace(`:${key.name}`, `By${capitalizedKey}`)
+      })
+    }
+    methodName = camelCase(methodName)
     callback({path, methodName, methodDefinitions})
   }
 }

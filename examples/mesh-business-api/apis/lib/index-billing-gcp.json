@@ -2,6 +2,17 @@
   "swagger": "2.0",
   "basePath": "/billing/gcp/v1",
   "paths": {
+    "/budgets/:id": {
+      "delete": {
+        "tags": [
+          "预算接口"
+        ],
+        "summary": "删除",
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
     "/costs/current_month/total": {
       "get": {
         "tags": [
