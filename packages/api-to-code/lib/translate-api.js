@@ -25,8 +25,8 @@ module.exports = (contextModule) => {
           }
         })
       }
-      methodName = method + capitalize(methodName.slice(0, 1)) + methodName.slice(1)
-      contextModule.string.methods += concatFunctionMap[method](methodName, path, options)
+      const fullMethodName = method + capitalize(methodName.slice(0, 1)) + methodName.slice(1)
+      contextModule.string.methods += concatFunctionMap[method](fullMethodName, path, options)
     })
   })
   contextModule.string.code = contextModule.string.concatPrefixUrl + concatWrapperClassName(contextModule.string.constructor, contextModule.string.methods)
