@@ -15,13 +15,20 @@ module.exports = (contextModule) => {
       // 方法名称
       if (methodDefinition.parameters.length !== 0) {
         methodDefinition.parameters.map(parameter => {
-          const isHeader = parameter.in === 'header'
           if (parameter.in === 'header') {
             const propertyIsContentDisposition = parameter.name.includes('Content-Disposition')
-            const valueIsAttachment = parameter.default.includes('attachment')
-            // console.log(parameter, isHeader, propertyIsContentDisposition, valueIsAttachment)
-            if (isHeader && propertyIsContentDisposition && valueIsAttachment) options.isContentDispositionAttachment = true
-            else options.isContentDispositionAttachment = false
+            if (propertyIsContentDisposition) {
+              const valueIsAttachment = parameter.default.includes('attachment')
+              if (valueIsAttachment) options.isContentDispositionAttachment = true
+              else options.isContentDispositionAttachment = false
+            } else options.isContentDispositionAttachment = false
+
+            const propertyIsContentType = parameter.name.includes('Content-Type')
+            if (propertyIsContentType) {
+              const valueIsMultipartFormData = parameter.default.includes('multipart/form-data')
+              if (valueIsMultipartFormData) options.isContentTypeMultipartFormData = true
+              else options.isContentTypeMultipartFormData = false
+            } else options.isContentTypeMultipartFormData = false
           }
         })
       }

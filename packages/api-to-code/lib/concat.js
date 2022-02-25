@@ -13,14 +13,18 @@ const concatConstructor = () => `
 
 const concatGetFunction = (functionName, pathname, options) => {
   const responseType = options.isContentDispositionAttachment ? 'blob' : 'json'
+  const concatContentTypeMultipartFormData = () => options.isContentTypeMultipartFormData ? `, {onUploadProgress = () => {}}` : ''
+  const concatContentTypeMultipartFormData2 = () => options.isContentTypeMultipartFormData ? ` headers: {'Content-Type': 'multipart/form-data'}, onUploadProgress,` : ''
+
   return `
-  async ${functionName} (params) {
+  async ${functionName} (params ${concatContentTypeMultipartFormData()}) {
     const pathname = prefixUrl('${pathname}')
     return this.httpClient({
       method: 'get',
       url: pathname,
       params,
-      responseType: '${responseType}'
+      responseType: '${responseType}',
+      ${concatContentTypeMultipartFormData2()}
     })
   }
 `
@@ -33,14 +37,18 @@ const concatDeleteFunction = (functionName, pathname) => `
 `
 const concatPostFunction = (functionName, pathname, options) => {
   const responseType = options.isContentDispositionAttachment ? 'blob' : 'json'
+  const concatContentTypeMultipartFormData = () => options.isContentTypeMultipartFormData ? `, {onUploadProgress = () => {}}` : ''
+  const concatContentTypeMultipartFormData2 = () => options.isContentTypeMultipartFormData ? ` headers: {'Content-Type': 'multipart/form-data'}, onUploadProgress,` : ''
+
   return `
-  async ${functionName} (data) {
+  async ${functionName} (data ${concatContentTypeMultipartFormData()}) {
     const pathname = prefixUrl('${pathname}')
     return this.httpClient({
       method: 'post',
       url: pathname,
       data,
-      responseType: '${responseType}'
+      responseType: '${responseType}',
+      ${concatContentTypeMultipartFormData2()}
     })
   }
 `

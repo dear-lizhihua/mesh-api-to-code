@@ -1,25 +1,25 @@
 {
   "swagger": "2.0",
-  "basePath": "/cdn/v1",
+  "basePath": "/public/v1",
   "paths": {
-    "/analysis/status_code/export": {
-      "get": {
+    "/files": {
+      "post": {
         "tags": [
-          "统计分析"
+          "上传服务"
         ],
-        "summary": "状态码图表导出",
+        "summary": "文件上传",
         "description": "",
         "consumes": [
           "application/json"
         ],
         "parameters": [
           {
-            "name": "Content-Disposition",
+            "name": "Content-Type",
             "in": "header",
-            "description": "Content-Disposition (Only:attachment)",
+            "description": "",
             "required": true,
             "type": "string",
-            "default": "attachment"
+            "default": "multipart/form-data"
           }
         ],
         "responses": {}

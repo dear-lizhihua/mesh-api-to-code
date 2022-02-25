@@ -11,6 +11,8 @@ module.exports = {
   build: {
     lib: {
       entry: path.resolve(__dirname, 'lib/index-billing-gcp.json'),
+      // entry: path.resolve(__dirname, 'lib/index-cdn.json'),
+      // entry: path.resolve(__dirname, 'lib/index-public.json'),
       fileName: 'index',
     },
   },
