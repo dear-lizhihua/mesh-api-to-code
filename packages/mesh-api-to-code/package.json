@@ -1,6 +1,6 @@
 {
   "name": "api-to-code",
-  "version": "1.0.7",
+  "version": "2.0.0",
   "type": "module",
   "module": "lib/builder.js",
   "bin": {
