@@ -1,0 +1,28 @@
+{
+  "name": "api-to-code",
+  "version": "1.0.7",
+  "type": "module",
+  "module": "lib/builder.js",
+  "bin": {
+    "mesh-api-to-code": "lib/builder.js"
+  },
+  "files": [
+    "lib",
+    "lib/utils/template/.env",
+    "lib/utils/template/.npmignore",
+    "lib/utils/template/package.json",
+    "lib/utils/template/vite.config.js"
+  ],
+  "dependencies": {
+    "@babel/generator": "^7.17.3",
+    "fs-extra": "^10.0.0",
+    "lodash": "^4.17.21",
+    "magic-string": "^0.26.1",
+    "path-to-regexp": "^6.2.0",
+    "prettier": "^2.5.1",
+    "tapable": "^2.2.1"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  }
+}

@@ -1,14 +1,24 @@
-const {camelCase, capitalize} = require('lodash')
-const {pathToRegexp} = require('path-to-regexp')
+import lodash from 'lodash'
+import { pathToRegexp } from 'path-to-regexp'
 
-const {
-  concatPrefixUrl, concatWrapperClassName, concatConstructor, concatFunctionMap,
-} = require('./concat')
+const {camelCase, capitalize} = lodash
+import generator from '@babel/generator'
+import buildFile from './build-file.js'
+import buildPrefixUrl from './build-prefix-url.js'
+import buildClass from './build-class.js'
+import buildClassConstructor from './build-class-constructor.js'
+import buildClassMethod from './build-class-method.js'
+import buildClassArgument from './build-argument.js'
+import buildClassBody from './build-call.js'
 
-module.exports = (contextModule) => {
-  contextModule.string.concatPrefixUrl = concatPrefixUrl()
-  contextModule.string.constructor = concatConstructor()
+export default (contextModule) => {
   const paths = contextModule.moduleValues.map(path => ({path, value: contextModule.data.paths[path]}))
+
+  const file = buildFile()
+  const prefixUrl = buildPrefixUrl()
+  const clazz = buildClass()
+  const classConstructor = buildClassConstructor()
+  clazz.declaration.body.body.push(classConstructor)
   mapPaths(paths, ({path, methodName, methodDefinitions}) => {
     mapMethods(methodDefinitions, ({method, methodDefinition}) => {
       const options = Object.create(null)
@@ -33,10 +43,20 @@ module.exports = (contextModule) => {
         })
       }
       const fullMethodName = method + capitalize(methodName.slice(0, 1)) + methodName.slice(1)
-      contextModule.string.methods += concatFunctionMap[method](fullMethodName, path, options)
+
+      const argument = buildClassArgument({fullMethodName, method, path, options})
+      const classBodyReturn = buildClassBody({fullMethodName, method, path, options})
+      const classMethod = buildClassMethod({fullMethodName, method, path, options})
+      classMethod.params.push(argument)
+      classMethod.body.body.push(classBodyReturn)
+      clazz.declaration.body.body.push(classMethod)
     })
   })
-  contextModule.string.code = contextModule.string.concatPrefixUrl + concatWrapperClassName(contextModule.string.constructor, contextModule.string.methods)
+
+  file.program.body.push(prefixUrl)
+  file.program.body.push(clazz)
+  contextModule.string.code = generator.default(file).code
+  // console.log(contextModule.string.code)
 }
 const mapPaths = (paths, callback) => {
   for (const {path, value} of paths) {

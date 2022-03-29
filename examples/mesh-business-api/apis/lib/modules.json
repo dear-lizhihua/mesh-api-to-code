@@ -1,0 +1,52 @@
+{
+  "swagger": "2.0",
+  "basePath": "/cdn/v1",
+  "paths": {
+    "/files": {
+      "post": {
+        "tags": [
+          "上传服务"
+        ],
+        "summary": "文件上传",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "type": "string",
+            "default": "multipart/form-data"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/analysis/export": {
+      "get": {
+        "tags": [
+          "统计分析"
+        ],
+        "summary": "状态码Top 10图表导出（访问数据和回源数据）",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Disposition",
+            "in": "header",
+            "description": "Content-Disposition (Only:attachment)",
+            "required": true,
+            "type": "string",
+            "default": "attachment"
+          }
+        ],
+        "responses": {}
+      }
+    }
+  }
+}

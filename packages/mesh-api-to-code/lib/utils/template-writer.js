@@ -1,8 +1,12 @@
-const MagicString = require('magic-string')
-const fs = require('fs-extra')
-const path = require('path')
+import fs from 'fs-extra'
+import MagicString from 'magic-string'
+import {readFile, parseJSON} from './index.js'
 
-module.exports = async (contextModule) => {
+import { dirname, resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
+const __dirname = dirname(fileURLToPath(import.meta.url))
+
+export default async (contextModule) => {
   await writeTemplateEnv(contextModule)
   await writeTemplateNpmIgnore(contextModule)
   await writeTemplatePackageJson(contextModule)
@@ -10,8 +14,8 @@ module.exports = async (contextModule) => {
 }
 
 const writeTemplateEnv = async (contextModule) => {
-  const sourceFileEnvFullPath = path.resolve(__dirname, './template/.env')
-  const sourceFileEnv = await fs.readFile(sourceFileEnvFullPath, 'utf8')
+  const sourceFileEnvFullPath = resolve(__dirname, './template/.env')
+  const sourceFileEnv = await readFile(sourceFileEnvFullPath, 'utf8')
 
   // 替换模板文本
   const sourceFileEnvString = new MagicString(sourceFileEnv)
@@ -20,14 +24,14 @@ const writeTemplateEnv = async (contextModule) => {
   while ((matchPrefix = patternPrefix.exec(sourceFileEnv))) {
     const start = matchPrefix.index
     const end = start + matchPrefix[1].length
-    sourceFileEnvString.overwrite(start, end, `VITE_PREFIX=${contextModule.res.prefix}`)
+    sourceFileEnvString.overwrite(start, end, `VITE_PREFIX=${contextModule.result.prefix}`)
   }
   const patternVersion = /(VITE_VERSION=)+/g
   let matchVersion
   while ((matchVersion = patternVersion.exec(sourceFileEnv))) {
     const start = matchVersion.index
     const end = start + matchVersion[1].length
-    sourceFileEnvString.overwrite(start, end, `VITE_VERSION=${contextModule.res.version}`)
+    sourceFileEnvString.overwrite(start, end, `VITE_VERSION=${contextModule.result.version}`)
   }
   const patternModule = /(VITE_MODULE=)+/g
   let matchModule
@@ -44,14 +48,14 @@ const writeTemplateEnv = async (contextModule) => {
 }
 
 const writeTemplateNpmIgnore = async (contextModule) => {
-  const sourceFileNpmIgnoreFullPath = path.resolve(__dirname, './template/.npmignore')
+  const sourceFileNpmIgnoreFullPath = resolve(__dirname, './template/.npmignore')
   const distFileNpmIgnoreFullPath = `${contextModule.paths.distModuleDirectoryFullPath}/.npmignore`
   await fs.copy(sourceFileNpmIgnoreFullPath, distFileNpmIgnoreFullPath)
 }
 
 const writeTemplatePackageJson = async (contextModule) => {
-  const sourceFilePackageJsonFullPath = path.resolve(__dirname, './template/package.json')
-  const sourceFilePackageJson = await require(sourceFilePackageJsonFullPath)
+  const sourceFilePackageJsonFullPath = resolve(__dirname, './template/package.json')
+  const sourceFilePackageJson = parseJSON(await readFile(sourceFilePackageJsonFullPath))
   const packageNamePrefix = contextModule.package.packageNamePrefix || '@mesh-api'
 
   // 替换模板文本
@@ -68,7 +72,7 @@ const writeTemplatePackageJson = async (contextModule) => {
 }
 
 const writeTemplateViteConfig = async (contextModule) => {
-  const sourceFileViteConfigFullPath = path.resolve(__dirname, './template/vite.config.js')
+  const sourceFileViteConfigFullPath = resolve(__dirname, './template/vite.config.js')
   const distFileViteConfigFullPath = `${contextModule.paths.distModuleDirectoryFullPath}/vite.config.js`
   await fs.copy(sourceFileViteConfigFullPath, distFileViteConfigFullPath)
 }

@@ -4,6 +4,6 @@
     "start": "mesh-api-to-code"
   },
   "dependencies": {
-    "api-to-code": "^1.0.0"
+    "@mesh-api/mesh-api-to-code": "^1.0.0"
   }
 }
